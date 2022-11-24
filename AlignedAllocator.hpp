@@ -1,9 +1,12 @@
+
+
 #include <stdlib.h>
-#include<vector>
-#include<queue>
-#include<iostream>
-#include<cstring>
-#include"ChunkAlloc.hpp"
+#include <vector>
+#include <queue>
+#include <iostream>
+#include <fstream>
+#include <cstring>
+#include "ChunkAlloc.hpp"
 
 template<
     class T,          // This is the type we are allocating.  You can assume this is less than or equal to 4kB
@@ -84,4 +87,4 @@ public:
 template<class T, size_t ALIGNMENT>
 const size_t AlignedAllocator<T, ALIGNMENT>::Alignment;
 
-// Cfiddle-signature=e847a316a2bfbe971a21d21864d9ce09
+// Cfiddle-signature=7f334a9b52a9e7a1de32ba8b6369a17b
