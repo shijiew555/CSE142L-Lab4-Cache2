@@ -1,7 +1,8 @@
+
 #include <stdlib.h>
 #include<vector>
-#include<queue>
 #include<iostream>
+#include <fstream>
 #include<cstring>
 #include"ChunkAlloc.hpp"
 
@@ -11,7 +12,7 @@ template<
     >
 class AlignedAllocator {
     std::vector<void*> chunks; // We store everything we allocated so we can clean up in the destructor.
-    std::queue<T*> retired;
+    std::vector<T*> retired;
 public:
     typedef T ItemType; // This will make T available as AlignedAllocator::ItemType
     static const size_t Alignment = ALIGNMENT;  // Likewise, we can access the alignment as AlignedAllocator::Alignment
@@ -62,8 +63,8 @@ public:
             return c;
             
         }
-        T* b = retired.front();
-        retired.pop();
+        T* b = retired.back();
+        retired.pop_back();
         return b;
         
 
@@ -71,7 +72,7 @@ public:
     }
     
     void free(T * p) {
-        retired.push(p);
+        retired.push_back(p);
     }
 
     ~AlignedAllocator() {
@@ -83,3 +84,5 @@ public:
 
 template<class T, size_t ALIGNMENT>
 const size_t AlignedAllocator<T, ALIGNMENT>::Alignment;
+
+// Cfiddle-signature=06890e6e5aac3efcad0a2e6e5c9faecb
